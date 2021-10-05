@@ -40,7 +40,7 @@ data/KERC21Dataset
     └── ...
 ```
 
-# Baseline Model for KERC2021
+# Baseline Model for KERC2021 (From Organizer)
 This code is distributed as a reference baseline for KERC2021 Emotion Recognition Challenge. This baseline is provided as an example for handling the dataset used in the competition.
 
 Baseline Model performs the task of classification of Emotion into 4 quadrants of Arousal-Valence space, namely,  
