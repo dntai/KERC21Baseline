@@ -1,3 +1,45 @@
+# 3rd Korean Emotion Recognition Challenge, 2021
+
+## Description
+Develop the emotion recognition system through multimodal analysis of various physiological signals
+
+Url: https://www.kaggle.com/c/kerc2021/
+
+## Team information: 
++ Team Name: **ADLER**
++ Team Members:
+  + **Nhu-Tai Do**, donhutai@gmail.com
+  + **Tram-Tran Nguyen Quynh**, tramtran2@gmail.com
++ Affiliation: Chonnam National University, South Korea
+
+## Setup Baseline
+
+### KERC21 Dataset 
++ mnt/KERC21Dataset : link to KERC21 Dataset Directory. Example: ../../ssd_data/KERC21Dataset/
++ data/KERC21Dataset: link to ../mnt/KERC21Dataset
++ Structure of KERC21 Dataset
+```
+data/KERC21Dataset
+├── train_labels.csv
+├── train_personality.csv
+├── val_personality.csv
+├── test_personality.csv
+├── train
+│   ├── train_person_1
+│   ├── train_person_2
+│   └── train_person_n
+│       ├── BVP_64.csv
+│       ├── EDA_4.csv
+│       ├── EEG_256.csv
+│       └── TEMP_4.csv
+├── valid
+│   ├── valid_person_1
+│   └── ...
+└── test
+    ├── test_person_1
+    └── ...
+```
+
 # Baseline Model for KERC2021
 This code is distributed as a reference baseline for KERC2021 Emotion Recognition Challenge. This baseline is provided as an example for handling the dataset used in the competition.
 
