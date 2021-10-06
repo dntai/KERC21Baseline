@@ -1,4 +1,5 @@
 import numpy as np
+import os, sys
 import time
 import torch
 from dataset import DatasetKERC21
@@ -21,11 +22,12 @@ class Baseline():
     # Please use a part of training set for validation.
     
     '''
-    def __init__(self, device, train_configs):
+    def __init__(self, device, train_configs, model_dir = 'logs/saved_model', model_name = 'saved_model_lastest.pt', **kwargs):
         super(Baseline, self).__init__()
         self.device = device
         self.train_config = train_configs
-        self.model_path = f'logs/saved_model/saved_model_{int(time.time())}.pt' 
+        self.model_dir, self.model_name = model_dir, model_name
+        self.model_path = f'{self.model_dir}/{self.model_name}'
             
     
     def train(self): 
@@ -37,6 +39,7 @@ class Baseline():
         criterion = FocalLoss()
         NUM_EPOCHS = self.train_config['epochs']
         best_loss = 100
+        best_epoch= -1
          
         #intital model state
         best_model_wts = copy.deepcopy(model.state_dict())
@@ -77,10 +80,22 @@ class Baseline():
             
             if epoch_loss < best_loss:
                 best_loss = epoch_loss
+                best_epoch= epoch
                 best_model_wts = copy.deepcopy(model.state_dict())
-            training_info.set_description_str(f'Epoch {epoch+1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, F1:{train_f1:.4f},  Best Loss:{best_loss:.4f}')
-            epoch_tqdm.update(1) 
-        
+                if self.model_dir != "" and os.path.exists(self.model_dir) == False: os.makedirs(self.model_dir)
+                torch.save(model, self.model_path)
+                with open(self.model_path + ".txt", 'wt') as file:
+                    file.write(f'Epoch {epoch+1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, F1:{train_f1:.4f},  Best Loss:{best_loss:.4f}, Best Epoch: {best_epoch + 1}')
+
+            training_info.set_description_str(f'Epoch {epoch+1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, F1:{train_f1:.4f},  Best Loss:{best_loss:.4f}, Best Epoch: {best_epoch + 1:}')
+            training_info.write(f'Epoch {epoch+1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, F1:{train_f1:.4f},  Best Loss:{best_loss:.4f}, Best Epoch: {best_epoch + 1}')
+            epoch_tqdm.update(1)
+
+
         #load best model weights and save
         model.load_state_dict(best_model_wts)
-        torch.save(model,  f'logs/saved_model/saved_model.pt')
+        if self.model_dir != "" and os.path.exists(self.model_dir) == False:
+            os.makedirs(self.model_dir)
+        torch.save(model,  self.model_path)
+        with open(self.model_path + ".txt", 'wt') as file:
+            file.write(f'Epoch {epoch + 1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, F1:{train_f1:.4f},  Best Loss:{best_loss:.4f}, Best Epoch: {best_epoch + 1}')

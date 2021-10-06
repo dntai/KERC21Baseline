@@ -12,9 +12,9 @@ Url: https://www.kaggle.com/c/kerc2021/
   + **Tram-Tran Nguyen Quynh**, tramtran2@gmail.com
 + Affiliation: Chonnam National University, South Korea
 
-## Setup Baseline
+## Baseline
 
-### KERC21 Dataset 
+### Setup Dataset 
 + mnt/KERC21Dataset : link to KERC21 Dataset Directory. Example: ../../ssd_data/KERC21Dataset/
 + data/KERC21Dataset: link to ../mnt/KERC21Dataset
 + Structure of KERC21 Dataset
@@ -39,6 +39,12 @@ data/KERC21Dataset
     ├── test_person_1
     └── ...
 ```
+
+### How to Run BaseLine
++ Run **run_preprocessing_data.ipynb** to extract train, valid, test features
++ Configure **configs/config.ini** for training/testing configuration
++ Run **run_train_baseline.ipynb** to train on the training data
++ Run **run_test_baseline.ipynb** to test on the validation and testing data
 
 # Baseline Model for KERC2021 (From Organizer)
 This code is distributed as a reference baseline for KERC2021 Emotion Recognition Challenge. This baseline is provided as an example for handling the dataset used in the competition.
