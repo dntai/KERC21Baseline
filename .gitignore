@@ -8,7 +8,7 @@ temps/
 
 # project
 /logs/
-
+/*.sh
 
 # exceptions
 !.keep
